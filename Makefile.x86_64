@@ -130,6 +130,39 @@ endif
 endif
 endif
 
+
+ifeq ($(CORE), GOLDENCOVE)
+ifndef NO_AVX512
+ifeq ($(C_COMPILER), GCC)
+# Golden cove is weird and in SPR, Alder lake P-cores and FSHW Falls with AVX512FP16, but doesnt always have AMX.
+# Create a target for consumer, prosumer and HEDT Golden Cove. Support was added in 12. 
+ifeq ($(GCCVERSIONGTEQ12), 1)
+CCOMMON_OPT += "-march=sapphirerapids -mno_amx-tile -mno_amx_int8 -mno_amx_bf16"
+ifneq ($(F_COMPILER), NAG)
+FCOMMON_OPT += "-march=sapphirerapids -mno_amx-tile -mno_amx_int8 -mno_amx_bf16"
+endif
+else  # gcc doesn't support, fallback to basic avx512
+CCOMMON_OPT += -march=skylake-avx512
+ifneq ($(F_COMPILER), NAG)
+FCOMMON_OPT += -march=skylake-avx512
+endif
+endif
+endif
+ifeq ($(OSNAME), CYGWIN_NT)
+CCOMMON_OPT += -fno-asynchronous-unwind-tables
+FCOMMON_OPT += -fno-asynchronous-unwind-tables
+endif
+ifeq ($(OSNAME), WINNT)
+ifeq ($(C_COMPILER), GCC)
+CCOMMON_OPT += -fno-asynchronous-unwind-tables
+FCOMMON_OPT += -fno-asynchronous-unwind-tables
+endif
+endif
+endif
+endif
+
+
+
 ifdef HAVE_AVX2
 ifndef NO_AVX2
 ifeq ($(C_COMPILER), GCC)

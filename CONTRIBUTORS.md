@@ -213,3 +213,6 @@ In chronological order:
   
 * Pablo Romero <https://github.com/pablorcum>
   * [2022-08] Fix building from sources for QNX
+
+* Felix LeClair <https://github.com/FCLC>
+  * [2022-09] Ground work and infrastructure for IEEE 754 Half float 16 (fp16) compute kernels and AVX512
