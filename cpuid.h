@@ -147,6 +147,7 @@
 #define HAVE_AVX2     (1 << 22)
 #define HAVE_AVX512BF16  (1 << 23)
 #define HAVE_AMXBF16  (1 << 24)
+#define HAVE_AVX512FP16 (1 << 25)
 
 #define CACHE_INFO_L1_I     1
 #define CACHE_INFO_L1_D     2

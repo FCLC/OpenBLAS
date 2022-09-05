@@ -1,4 +1,3 @@
-//{
 /*********************************************************************/
 /* Copyright 2009, 2010 The University of Texas at Austin.           */
 /* All rights reserved.                                              */
@@ -228,6 +227,23 @@ int support_avx2(){
 #endif
 }
 
+int support_fp16c(){// introduced with the ivybridge uArch, this instruction set allows for fp16 half floats in fp32 registers
+#if !defined(NO_AVX)
+  int eax, ebx, ecx, edx;
+  int ret=0;
+
+  if (!support_avx())
+    return 0;
+  cpuid(1, &eax, &ebx, &ecx, &edx);
+  if(ecx & ( 1<< 29) != 0){
+      ret=1;  // CPUID.1.1:ECX[bit 29] indicates whether fp16c is supported or not
+  }
+  return ret;
+#else
+  return 0;
+#endif
+}
+
 int support_avx512(){
 #if !defined(NO_AVX) && !defined(NO_AVX512)
   int eax, ebx, ecx, edx;
@@ -250,6 +266,23 @@ int support_avx512(){
 #endif
 }
 
+int support_avx512_fp16(){
+#if !defined(NO_AVX) && !defined(NO_AVX512)
+  int eax, ebx, ecx, edx;
+  int ret=0;
+
+  if (!support_avx512())
+    return 0;
+  cpuid_count(7, 1, &eax, &ebx, &ecx, &edx);
+  if(edx & ( 1<< 23) != 0){
+      ret=1;  // CPUID.7.1:EAX[bit 5] indicates whether avx512_fp16 supported or not
+  }
+  return ret;
+#else
+  return 0;
+#endif
+}
+
 int support_avx512_bf16(){
 #if !defined(NO_AVX) && !defined(NO_AVX512)
   int eax, ebx, ecx, edx;
@@ -266,6 +299,7 @@ int support_avx512_bf16(){
   return 0;
 #endif
 }
+
 
 #define BIT_AMX_TILE	0x01000000
 #define BIT_AMX_BF16	0x00400000
@@ -380,6 +414,7 @@ int get_cputype(int gettype){
     if (support_avx()) feature |= HAVE_AVX;
     if (support_avx2()) feature |= HAVE_AVX2;
     if (support_avx512()) feature |= HAVE_AVX512VL;
+    if (support_avx512_fp16()) feature |= HAVE_AVX512FP16;
     if (support_avx512_bf16()) feature |= HAVE_AVX512BF16;
     if (support_amx_bf16()) feature |= HAVE_AMXBF16;
     if ((ecx & (1 << 12)) != 0) feature |= HAVE_FMA3;
