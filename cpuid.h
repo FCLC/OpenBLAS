@@ -121,6 +121,7 @@
 #define CORE_DHYANA	 29
 #define CORE_COOPERLAKE  30
 #define CORE_SAPPHIRERAPIDS  31
+#define CORE_GOLDENCOVE 	32
 
 #define HAVE_SSE      (1 <<  0)
 #define HAVE_SSE2     (1 <<  1)

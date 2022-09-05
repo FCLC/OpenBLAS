@@ -510,11 +510,26 @@ USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                      "-DL2_SIZE=262144 -DL2_LINESIZE=64 " \
                      "-DDTB_DEFAULT_ENTRIES=64 -DDTB_SIZE=4096 " \
                      "-DHAVE_CMOV -DHAVE_MMX -DHAVE_SSE -DHAVE_SSE2 -DHAVE_SSE3 -DHAVE_SSSE3 -DHAVE_SSE4_1 -DHAVE_SSE4_2 -DHAVE_AVX " \
-                     "-DHAVE_AVX2 -DHAVE_FMA3 -DFMA3 -DHAVE_AVX512VL -DHAVE_AVX512BF16 -march=sapphirerapids"
+                     "-DHAVE_AVX2 -DHAVE_FMA3 -DFMA3 -DHAVE_AVX512VL -DHAVE_AVX512BF16 -DHAVE_AVX512FP16 -march=sapphirerapids"
 #define LIBNAME   "sapphirerapids"
 #define CORENAME  "SAPPHIRERAPIDS"
 #endif
 #endif
+
+/*
+#else
+#define SUBARCHITECTURE "GOLDENCOVE"
+#define ARCHCONFIG   "-DGOLDENCOVE " \
+                     "-DL1_DATA_SIZE=32768 -DL1_DATA_LINESIZE=64 " \
+                     "-DL2_SIZE=262144 -DL2_LINESIZE=64 " \
+                     "-DDTB_DEFAULT_ENTRIES=64 -DDTB_SIZE=4096 " \
+                     "-DHAVE_CMOV -DHAVE_MMX -DHAVE_SSE -DHAVE_SSE2 -DHAVE_SSE3 -DHAVE_SSSE3 -DHAVE_SSE4_1 -DHAVE_SSE4_2 -DHAVE_AVX " \
+                     "-DHAVE_AVX2 -DHAVE_FMA3 -DFMA3 -DHAVE_AVX512VL -DHAVE_AVX512BF16 -DHAVE_AVX512FP16 -march=sapphirerapids"
+#define LIBNAME   "goldencove"
+#define CORENAME  "GOLDENCOVE"
+#endif
+*/
+
 
 #ifdef FORCE_ATOM
 #define FORCE
